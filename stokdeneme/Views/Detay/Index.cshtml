@@ -1,0 +1,54 @@
+﻿@using stokdeneme.Models.Entities
+@model List<Siparis_Detay>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+<h3 style="margin-top:20px;">@ViewBag.viewfirma Numaralı Sipariş Bilgisi</h3>
+<style>
+    .doz {
+        display: flex;
+    }
+
+    .asd {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .buton {
+        margin-top: 20px;
+        margin-left: 50px;
+    }
+</style>
+<body>
+<div class="doz">
+    <table class="table table-bordered table-striped  asd">
+        <tr>
+            <th>ID</th>
+            <th>Kullanıcı Adı</th>
+            <th>Ürün Adı</th>
+            <th>Ürün Adet</th>
+            <th>Fiyat</th>
+            <th>KDV</th>
+            <th>Firma</th>
+            <th>Tarih</th>
+        </tr>
+        <tbody>
+            @foreach (var frm in Model)
+            {
+                <tr>
+                    <th>@frm.Siparis_ID</th>
+                    <td>@frm.Kullanicilar.Kullaniciadi</td>
+                    <td>@frm.Urunler.Urun_Ad</td>
+                    <td>@frm.Urun_adet</td>
+                    <td>@frm.KDVsiz_fiyat</td>
+                    <td>@frm.KDV.KDV_oran</td>
+                    <td>@frm.Firmalar.Firma_Ad</td>
+                    <td>@frm.Tarih</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+</body>
+

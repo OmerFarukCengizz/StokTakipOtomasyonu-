@@ -1,0 +1,36 @@
+﻿@model stokdeneme.Models.Entities.Urunler
+@{
+    ViewBag.Title = "Ekleme";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="container">
+    @using (Html.BeginForm("Ekleme", "Urunler", FormMethod.Post))
+    {
+        <div class="form-group">
+            <label style="margin-top:5px;">Barkod No</label>
+            <input type="text" name="Barkod_no" class="form-control w-50" />
+            <label style="margin-top:5px;">Ürün Adı</label>
+            <input type="text" name="Urun_Ad" class="form-control w-50" />
+            <label style="margin-top:5px;">Firma Adı</label>
+            @Html.DropDownListFor(m => m.Firmalar.Firma_ID, (List<SelectListItem>)ViewBag.frms, new { @class = "form-control w-50" })
+            <label style="margin-top:5px;">Kategori Adı</label>
+            @Html.DropDownListFor(m => m.kategoriler.Kategori_ID, (List<SelectListItem>)ViewBag.dgr, new { @class = "form-control w-50" })
+            <label style="margin-top:5px;">Marka Adı</label>
+            @Html.DropDownListFor(m => m.Markalar.Marka_ID, (List<SelectListItem>)ViewBag.mrklr, new { @class = "form-control w-50" })
+            <label style="margin-top:5px;">Yalın fiyat</label>
+            <input type="text" name="KDV_haric_fiyat" class="form-control w-50" />
+            <label style="margin-top:5px;">KDV ID</label>
+            <input type="text" name="KDV_ID" class="form-control w-50" />
+            <label style="margin-top:5px;">Kar Yüzdesi</label>
+            <input type="text" name="Yuzdelik_Kar" class="form-control w-50" />
+            <label style="margin-top:5px;">İskonto</label>
+            <input type="text" name="Iskonto" class="form-control w-50" />
+            <label style="margin-top:5px;">Stok Miktarı</label>
+            <input type="text" name="Stok" class="form-control w-50" />
+            <div style="margin-top:20px;">
+                <button class="btn btn-info">Ürün Ekle</button>
+            </div>
+        </div>
+    }
+</div>

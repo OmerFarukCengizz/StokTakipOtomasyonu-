@@ -1,0 +1,73 @@
+﻿@using stokdeneme.Models.Entities
+@model  List<kategoriler>   
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+<style>
+    .doz {
+        display: flex;
+    }
+
+    .asd {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .buton {
+        margin-top: 20px;
+        margin-left: 50px;
+    }
+</style>
+<body>
+
+        <button type="button" class="btn btn-success buton" data-bs-toggle="modal" data-bs-target="#Modal1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 18 18">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
+            </svg>Yeni Kategori Ekle
+        </button>
+        <div class="modal" id="Modal1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Kategori Ekleme Ekranı</h2>
+                    </div>
+                    <form method="post" action="/Kategoriler/Ekleme">
+                        <div class="modal-body">
+                            <label>Kategori Adı</label>
+                            <input type="text" name="Kategori_ad" class="form-control" />
+                            <div style="margin-top:20px;">
+                                <button class="btn btn-info">Kategori Ekle</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+   
+        <div class="doz">
+            <table class="table table-bordered table-striped  asd">
+                <tr>
+                    <th>Kategori ID</th>
+                    <th>Kategori Adı</th>
+                        <th>Sil</th>
+                        <th>Güncelle</th>
+                    
+                </tr>
+                <tbody>
+                    @foreach (var ktgr in Model)
+                    {
+                        <tr>
+                            <th>@ktgr.Kategori_ID</th>
+                            <td>@ktgr.Kategori_ad</td>
+                            
+                                <td>@Html.ActionLink("Sil", "Sil", new { id = ktgr.Kategori_ID }, new { @class = "btn btn-danger w-25", onclick = "return confirm('Gerçekten Silmek İstiyor musunuz?')" }) </td>
+                                <td><a href="/Kategoriler/Güncelle/@ktgr.Kategori_ID" class="btn btn-primary">Güncelle</a></td>
+                            
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </body>
+

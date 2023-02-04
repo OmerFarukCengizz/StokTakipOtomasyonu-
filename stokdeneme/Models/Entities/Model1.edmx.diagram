@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ec8e4ac1322147d094617ec368ef0052" Name="Diagram1">
+        <EntityTypeShape EntityType="stokModel.Firmalar" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="stokModel.kategoriler" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="stokModel.KDV" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stokModel.Markalar" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="stokModel.Odemeler" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stokModel.Satislar" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stokModel.Sepet" Width="1.5" PointX="6.875" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="stokModel.Siparisler" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stokModel.sysdiagrams" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stokModel.Urunler" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="stokModel.Hesaplar" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stokModel.Satis_Detay" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stokModel.Siparis_Detay" Width="1.5" PointX="11.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="stokModel.Stok" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="stokModel.FK_Urunler_Firmalar" ManuallyRouted="false" />
+        <AssociationConnector Association="stokModel.FK_Urunler_kategoriler" ManuallyRouted="false" />
+        <AssociationConnector Association="stokModel.FK_Urunler_KDV" ManuallyRouted="false" />
+        <AssociationConnector Association="stokModel.FK_Urunler_Markalar" ManuallyRouted="false" />
+        <AssociationConnector Association="stokModel.FK_Sepet_Urunler" />
+        <AssociationConnector Association="stokModel.FK_Sepet_Firmalar" />
+        <EntityTypeShape EntityType="stokModel.Kullanicilar" Width="1.5" PointX="3.375" PointY="9.875" />
+        <AssociationConnector Association="stokModel.FK_Sepet_Kullanicilar" />
+        <AssociationConnector Association="stokModel.FK_Siparis_Detay_Kullanicilar" />
+        <AssociationConnector Association="stokModel.FK_Siparis_Detay_Firmalar" />
+        <AssociationConnector Association="stokModel.FK_Siparis_Detay_Urunler" />
+        <AssociationConnector Association="stokModel.FK_Sepet_KDV" />
+        <AssociationConnector Association="stokModel.FK_Siparis_Detay_KDV" />
+        <AssociationConnector Association="stokModel.FK_Siparisler_Firmalar" />
+        <AssociationConnector Association="stokModel.FK_Siparis_Detay_Siparisler" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,74 @@
+﻿
+@using stokdeneme.Models.Entities
+
+@model List<Urunler>
+@{
+    ViewBag.Title = "Urunlist";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<style>
+    .doz {
+        display: flex;
+    }
+
+    .asd {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .buton {
+        margin-top: 20px;
+        margin-left: 50px;
+    }
+
+    .ara {
+        margin-top: -36px;
+        margin-left: 900px;
+    }
+
+    .but {
+        margin-top: -37px;
+        margin-left: 1174px;
+    }
+
+    .img {
+        height: 100px;
+        width: 110px;
+        object-fit: contain;
+    }
+</style>
+<body>
+
+    <a href="/Urunler/Ekleme" class="btn btn-success buton">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 18 18">
+            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
+        </svg>Yeni Ürün Ekle
+    </a>
+
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            <div class="w-25 ara">
+                @Html.TextBox("ara", null, new { @class = "form-control", @placeholder = "Aranacak ürün adını giriniz" })
+            </div>
+            <div class="but">
+                @Html.ActionLink("Ara", "Index", null, new { @class = "btn btn-info ", onclick = "$(this).parents('form').attr('action', $(this).attr('href'));$(this).parents('form').submit();return false;" })
+            </div>
+        </div>
+    }
+    <div class="asd">
+        @{
+            var grid = new WebGrid(source: Model);
+            @grid.GetHtml(tableStyle: "table table-bordered", htmlAttributes: new { id = "grid" },
+           columns: grid.Columns(
+                grid.Column(format: @<img src="@Href(@item.Resim)" />, header: "Barkod No"),
+                grid.Column(columnName: "Barkod_no", header: "Barkod No"),
+                grid.Column(columnName: "Urun_Ad", header: "Ürün Adı"),
+                grid.Column(columnName: "Markalar.Marka_Isim", header: "Marka"),
+                grid.Column(columnName: "kategoriler.Kategori_ad", header: "Kategori")
+)
+)
+        }
+    </div>
+</body>

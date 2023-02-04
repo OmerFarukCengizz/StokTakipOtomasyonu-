@@ -1,0 +1,26 @@
+﻿@model stokdeneme.Models.Entities.Firmalar
+@{
+    ViewBag.Title = "Güncelle";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+@using (Html.BeginForm("Guncel", "Firmalar", FormMethod.Post))
+{
+    <div class="form-group">
+        <label style="margin-top:20px;">Firma ID</label>
+        @Html.TextBoxFor(m => m.Firma_ID, new { @class = "form-control w-50", style = "margin-top:10px;", @readonly = true })
+        <label style="margin-top:20px;">Firma Adı</label>
+        @Html.TextBoxFor(m => m.Firma_Ad, new { @class = "form-control w-50", style = "margin-top:10px;" })
+        <label style="margin-top:20px;">Firma Alacak</label>
+        @Html.TextBoxFor(m => m.Firma_Alacak, new { @class = "form-control w-50", style = "margin-top:10px;" })
+        <label style="margin-top:20px;">Firma Verecek</label>
+        @Html.TextBoxFor(m => m.Firma_Verecek, new { @class = "form-control w-50", style = "margin-top:10px;" })
+        <label style="margin-top:20px;">Firma İndirimi</label>
+        @Html.TextBoxFor(m => m.Firma_indirim, new { @class = "form-control w-50", style = "margin-top:10px;" })
+        <div style="margin-top:20px;">
+            <button class="btn btn-warning">Firma Güncelle</button>
+        </div>
+    </div>
+}
+
+

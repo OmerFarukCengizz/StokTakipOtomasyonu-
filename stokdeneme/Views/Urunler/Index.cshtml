@@ -1,0 +1,106 @@
+﻿@using stokdeneme.Models.Entities
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Urunler>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<style>
+    .doz {
+        display: flex;
+    }
+
+    .asd {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .buton {
+        margin-top: 20px;
+        margin-left: 50px;
+    }
+
+    .ara {
+        margin-top: -36px;
+        margin-left: 900px;
+    }
+
+    .but {
+        margin-top: -37px;
+        margin-left: 1174px;
+    }
+    .img{
+        height:100px;
+        width:110px;
+        object-fit:contain;
+    }
+</style>
+<body>
+  
+        <a href="/Urunler/Ekleme" class="btn btn-success buton">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 18 18">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
+            </svg>Yeni Ürün Ekle
+        </a>
+ 
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                <div class="w-25 ara">
+                    @Html.TextBox("ara", null, new { @class = "form-control", @placeholder = "Aranacak ürün adını giriniz" })
+                </div>
+                <div class="but">
+                    @Html.ActionLink("Ara", "Index", null, new { @class = "btn btn-info ", onclick = "$(this).parents('form').attr('action', $(this).attr('href'));$(this).parents('form').submit();return false;" })
+                </div>
+            </div>
+        }
+        <div class="doz">
+            <table class="table table-bordered asd">
+                <tr>
+                    <th>Fotoğraf</th>
+                    <th>Barkod No</th>
+                    <th>Ürün Adı</th>
+                    <th>Marka</th>
+                    <th>Kategori</th>
+                    <th>Yalın Fiyat</th>
+                    <th>KDV</th>
+                    <th>Kar oranı</th>
+                    <th>İskonto</th>
+                    <th>Stok Miktarı</th>
+                    <th>Firma Adı</th>
+                        <th>Sil</th>
+                        <th>Güncelle</th>
+                   
+                </tr>
+                <tbody>
+                    @foreach (var urn in Model)
+                    {
+                        <tr>
+                            <td><img class="img" src="@urn.Resim" alt="@urn.Urun_Ad" /></td>
+                            <td style="vertical-align: middle;">@urn.Barkod_no</td>
+                            <td style="vertical-align: middle;">@urn.Urun_Ad</td>
+                            <td style="vertical-align: middle;">@urn.Markalar.Marka_Isim</td>
+                            <td style="vertical-align: middle;">@urn.kategoriler.Kategori_ad</td>
+                            <td style="vertical-align: middle;">@urn.KDV_Haric_Fiyat</td>
+                            <td style="vertical-align: middle;">@urn.KDV.KDV_oran</td>
+                            <td style="vertical-align: middle;">@urn.Yuzdelik_Kar</td>
+                            <td style="vertical-align: middle;">@urn.Iskonto</td>
+                            <td style="vertical-align: middle;">@urn.Stok</td>
+                            <td style="vertical-align: middle;">@urn.Firmalar.Firma_Ad</td>
+                                <td style="vertical-align: middle;">@Html.ActionLink("Sil", "Sil", new { id = urn.Urun_ID }, new { @class = "btn btn-danger", onclick = "return confirm('Gerçekten Silmek İstiyor musunuz?')" }) </td>
+                                <td style="vertical-align: middle;"><a href="/Urunler/Güncelle/@urn.Urun_ID" class="btn btn-primary">Güncelle</a></td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </body>
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }), new PagedListRenderOptions
+ {
+     LiElementClasses = new List<string>
+     {"page-link"}
+ })

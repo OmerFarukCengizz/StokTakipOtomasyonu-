@@ -1,0 +1,86 @@
+﻿@using stokdeneme.Models.Entities
+
+@model List<Firmalar>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<style>
+    .doz {
+        display: flex;
+    }
+
+    .asd {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .buton {
+        margin-top: 20px;
+        margin-left: 50px;
+    }
+</style>
+<body>
+
+    <button type="button" class="btn btn-success buton" data-bs-toggle="modal" data-bs-target="#Modal1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 18 18">
+            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
+        </svg>Yeni Firma Ekle
+    </button>
+    <div class="modal" id="Modal1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Firma Ekleme Ekranı</h2>
+                </div>
+                <form method="post" action="/Firmalar/Ekleme">
+                    <div class="modal-body">
+                        <label style="margin-top:5px;">Firma Adı</label>
+                        <input type="text" name="Firma_Ad" class="form-control" />
+                        <label style="margin-top:5px;">Firma Alacağı</label>
+                        <input type="text" name="Firma_Alacak" class="form-control" />
+                        <label style="margin-top:5px;">Firma Vereceği</label>
+                        <input type="text" name="Firma_Verecek" class="form-control" />
+                        <label style="margin-top:5px;">Firma İndirimi</label>
+                        <input type="text" name="Firma_indirim" class="form-control" />
+
+                        <div style="margin-top:20px;">
+                            <button class="btn btn-info">Firma Ekle</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="doz">
+        <table class="table table-bordered table-striped  asd">
+            <tr>
+                <th>Firma ID</th>
+                <th>Firma Adı</th>
+                <th>Firma Alacak</th>
+                <th>Firma Verecek</th>
+                <th>Firma İndirim</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+            </tr>
+            <tbody>
+                @foreach (var frm in Model)
+                {
+                    <tr>
+                        <th>@frm.Firma_ID</th>
+                        <td>@frm.Firma_Ad</td>
+                        <td>@frm.Firma_Alacak</td>
+                        <td>@frm.Firma_Verecek</td>
+                        <td>@frm.Firma_indirim</td>
+                        <td>@Html.ActionLink("Sil", "Sil", new { id = frm.Firma_ID }, new { @class = "btn btn-danger", onclick = "return confirm('Gerçekten Silmek İstiyor musunuz?')" }) </td>
+                        <td><a href="/Firmalar/Güncelle/@frm.Firma_ID" class="btn btn-primary">Güncelle</a></td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+

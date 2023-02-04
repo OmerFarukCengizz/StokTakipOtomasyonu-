@@ -1,0 +1,19 @@
+﻿@model stokdeneme.Models.Entities.kategoriler
+@{
+    ViewBag.Title = "Güncelle";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+@using (Html.BeginForm("Guncel","Kategoriler", FormMethod.Post))
+{
+    <div class="form-group">
+        <label style="margin-top:20px;">Kategori ID</label>
+        @Html.TextBoxFor(m => m.Kategori_ID, new { @class = "form-control w-50", style = "margin-top:20px;" ,@readonly = true })
+        <label style="margin-top:20px;">Kategori Adı</label>
+        @Html.TextBoxFor(m => m.Kategori_ad, new { @class = "form-control w-50", style = "margin-top:20px;" })
+        <div style="margin-top:20px;">
+            <button class="btn btn-warning">Kategori Güncelle</button>
+        </div>
+    </div>
+}
+

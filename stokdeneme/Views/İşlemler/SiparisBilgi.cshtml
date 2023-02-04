@@ -1,0 +1,68 @@
+﻿@using stokdeneme.Models.Entities
+@model List<Urunler>
+@{
+    ViewBag.Title = "SiparisBilgi";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<h2 style="margin-top:20px;">@ViewBag.viewfirma Firması</h2>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<style>
+    .ara {
+        margin-top: 20px;
+    }
+    .but {
+        margin-top: -37px;
+        margin-left:274px;
+    }
+    .grid-container {
+        width: 1250px;
+        display: grid;
+        grid-template-columns: auto auto auto auto auto;
+    }
+.product-grid{text-align:center;padding:0 0 110px;border:1px solid rgba(0,0,0,.1);overflow:hidden;position:relative;z-index:1}
+.product-grid .product-image{position:relative;transition:all .3s ease 0s;object-fit:contain;}
+.product-grid .product-image a{display:block}
+.product-grid .product-image img{width:70%;height:auto}
+.product-grid .pic-1{opacity:1;transition:all .3s ease-out 0s}
+.product-grid:hover .pic-1{opacity:1}
+.product-grid .product-content{background-color:#fff;text-align:center;padding:25px 0;margin:0 auto;position:absolute;left:0;right:0;bottom:-27px;z-index:1;transition:all .3s}
+.product-grid:hover .product-content{bottom:0}
+.product-grid .title{font-size:14px;font-weight:600;letter-spacing:.5px;text-transform:capitalize;margin:0 0 10px;transition:all .3s ease 0s}
+.product-grid .title a{color:#828282}
+.product-grid .title a:hover,.product-grid:hover .title a{color:#ef5777}
+.product-grid .price{color:#333;font-size:17px;font-family:Montserrat,sans-serif;font-weight:700;letter-spacing:.6px;margin-bottom:8px;text-align:center;transition:all .3s}
+.product-grid .add-to-cart{color:#000;font-size:13px;font-weight:600}
+
+</style>
+<body>
+    @using (Html.BeginForm())
+    {
+        <div class="form-group tab">
+            <div class="w-25 ara">
+                @Html.TextBox("ara", null, new { @class = "form-control", @placeholder = "Aranacak ürün adını giriniz" })
+            </div>
+            <div class="but">
+                @Html.ActionLink("Ara", "SiparisBilgi", null, new { @class = "btn btn-info ", onclick = "$(this).parents('form').attr('action', $(this).attr('href'));$(this).parents('form').submit();return false;" })
+            </div>
+        </div>
+    }
+<div class="grid-container" style="margin-bottom:30px;">
+    @foreach (var urn in Model)
+    {
+<div class="product-grid" style="margin-top:30px; margin-left:50px;">
+    <div class="product-image" style="object-fit:contain;">
+            <img class="pic-1" src="@urn.Resim" alt="@urn.Urun_Ad">
+    </div>
+    <div class="product-content">
+        <h1 class="title"> @urn.Urun_Ad</h1>
+        <div class="price">@urn.KDV_Haric_Fiyat TL
+        </div>
+        <a class="add-to-cart btn btn-success text-light w-50" href="/Sepet/SepeteEkle/@urn.Urun_ID">Sepete Ekle</a>
+    </div>
+</div>
+    }
+</div>
+
+</body>
+

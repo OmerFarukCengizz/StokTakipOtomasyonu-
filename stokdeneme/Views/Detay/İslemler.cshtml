@@ -1,0 +1,51 @@
+﻿@using stokdeneme.Models.Entities
+@model List<Siparisler>
+@{
+    ViewBag.Title = "İslemler";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<style>
+    .doz {
+        display: flex;
+    }
+
+    .asd {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .buton {
+        margin-top: 20px;
+        margin-left: 50px;
+    }
+</style>
+<div class="container py-3">
+    <h3>Siparişler</h3>
+    </div>
+    <body>
+        <div class="doz">
+            <table class="table table-bordered table-striped  asd">
+                <tr>
+                    <th>ID</th>
+                    <th>Firma</th>
+                    <th>Sipariş Tutar</th>
+                    <th>Tarih</th>
+                    <th>İncele</th>
+                </tr>
+                <tbody>
+                    @foreach (var frm in Model.OrderBy(x => x.Siparis_Tarih))
+                    {
+                        <tr>
+                            <th>@Html.DisplayFor(modelItem => frm.Siparis_ID)</th>
+                            <td>@Html.DisplayFor(modelItem => frm.Firmalar.Firma_Ad)</td>
+                            <td>@Html.DisplayFor(modelItem => frm.Siparis_Tutar) TL</td>
+                            <td> @Html.DisplayFor(modelItem => frm.Siparis_Tarih)</td>
+                            <td> <a href="/Detay/Index/@frm.Siparis_ID" class="btn btn-warning w-50">İncele</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </body>
+

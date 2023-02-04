@@ -1,0 +1,1031 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="stokModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Firmalar">
+          <Key>
+            <PropertyRef Name="Firma_ID" />
+          </Key>
+          <Property Name="Firma_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firma_Ad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Firma_Alacak" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Firma_Verecek" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Firma_indirim" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'stok.dbo.Hesaplar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Hesaplar">
+          <Key>
+            <PropertyRef Name="Hesap_ID" />
+          </Key>
+          <Property Name="Hesap_ID" Type="int" Nullable="false" />
+          <Property Name="Hesap_Ad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bloke_Suresi" Type="int" />
+        </EntityType>
+        <EntityType Name="kategoriler">
+          <Key>
+            <PropertyRef Name="Kategori_ID" />
+          </Key>
+          <Property Name="Kategori_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kategori_ad" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="KDV">
+          <Key>
+            <PropertyRef Name="KDV_ID" />
+          </Key>
+          <Property Name="KDV_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KDV_oran" Type="int" />
+        </EntityType>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kullaniciadi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Markalar">
+          <Key>
+            <PropertyRef Name="Marka_ID" />
+          </Key>
+          <Property Name="Marka_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Marka_Isim" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Odemeler">
+          <Key>
+            <PropertyRef Name="Odeme_ID" />
+          </Key>
+          <Property Name="Odeme_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firma_ID" Type="int" Nullable="false" />
+          <Property Name="Odenen_tutar" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Odeme_kod" Type="nvarchar" MaxLength="3" />
+          <Property Name="Odeme_tarih" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'stok.dbo.Satis_Detay' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Satis_Detay">
+          <Key>
+            <PropertyRef Name="Satis_ID" />
+            <PropertyRef Name="Urun_ID" />
+          </Key>
+          <Property Name="Satis_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firma_ID" Type="int" />
+          <Property Name="Urun_ID" Type="int" Nullable="false" />
+          <Property Name="Urun_adet" Type="int" />
+          <Property Name="Birim_fiyat" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Tarih" Type="date" />
+        </EntityType>
+        <EntityType Name="Satislar">
+          <Key>
+            <PropertyRef Name="Satis_ID" />
+          </Key>
+          <Property Name="Satis_ID" Type="int" Nullable="false" />
+          <Property Name="Firma_ID" Type="int" />
+          <Property Name="Satis_Tutar" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Odenen_Tutar" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Odeme_Tipi" Type="nvarchar" MaxLength="3" />
+          <Property Name="Tarih" Type="date" />
+        </EntityType>
+        <EntityType Name="Sepet">
+          <Key>
+            <PropertyRef Name="Sepet_ID" />
+          </Key>
+          <Property Name="Sepet_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" Nullable="false" />
+          <Property Name="Urun_ID" Type="int" Nullable="false" />
+          <Property Name="Urun_Miktar" Type="int" />
+          <Property Name="KDVsiz_fiyat" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Toplam_fiyat" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Tarih" Type="datetime" />
+          <Property Name="Firma_ID" Type="int" Nullable="false" />
+          <Property Name="KDV_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Siparis_Detay">
+          <Key>
+            <PropertyRef Name="Sepet_ID" />
+          </Key>
+          <Property Name="Sepet_ID" Type="int" Nullable="false" />
+          <Property Name="Siparis_ID" Type="int" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" />
+          <Property Name="Urun_ID" Type="int" Nullable="false" />
+          <Property Name="KDV_ID" Type="int" />
+          <Property Name="Urun_adet" Type="int" />
+          <Property Name="KDVsiz_fiyat" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Firma_ID" Type="int" />
+          <Property Name="Tarih" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Siparisler">
+          <Key>
+            <PropertyRef Name="Siparis_ID" />
+          </Key>
+          <Property Name="Siparis_ID" Type="int" Nullable="false" />
+          <Property Name="Firma_ID" Type="int" />
+          <Property Name="Siparis_Tutar" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Odenen_Tutar" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="Siparis_Tarih" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'stok.dbo.Stok' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Stok">
+          <Key>
+            <PropertyRef Name="Urun_ID" />
+          </Key>
+          <Property Name="Urun_ID" Type="int" Nullable="false" />
+          <Property Name="Stok_Adedi" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Urunler">
+          <Key>
+            <PropertyRef Name="Urun_ID" />
+          </Key>
+          <Property Name="Urun_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Barkod_no" Type="int" />
+          <Property Name="Urun_Ad" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Marka_ID" Type="int" Nullable="false" />
+          <Property Name="Kategori_ID" Type="int" Nullable="false" />
+          <Property Name="KDV_Haric_Fiyat" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="KDV_ID" Type="int" Nullable="false" />
+          <Property Name="Yuzdelik_Kar" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Iskonto" Type="int" Nullable="false" />
+          <Property Name="Stok" Type="int" Nullable="false" />
+          <Property Name="Firma_ID" Type="int" Nullable="false" />
+          <Property Name="Resim" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Sepet_Firmalar">
+          <End Role="Firmalar" Type="Self.Firmalar" Multiplicity="1" />
+          <End Role="Sepet" Type="Self.Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firmalar">
+              <PropertyRef Name="Firma_ID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="Firma_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sepet_KDV">
+          <End Role="KDV" Type="Self.KDV" Multiplicity="0..1" />
+          <End Role="Sepet" Type="Self.Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KDV">
+              <PropertyRef Name="KDV_ID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="KDV_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sepet_Kullanicilar">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+          <End Role="Sepet" Type="Self.Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sepet_Urunler">
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="1" />
+          <End Role="Sepet" Type="Self.Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="Urun_ID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="Urun_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparis_Detay_Firmalar">
+          <End Role="Firmalar" Type="Self.Firmalar" Multiplicity="0..1" />
+          <End Role="Siparis_Detay" Type="Self.Siparis_Detay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firmalar">
+              <PropertyRef Name="Firma_ID" />
+            </Principal>
+            <Dependent Role="Siparis_Detay">
+              <PropertyRef Name="Firma_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparis_Detay_KDV">
+          <End Role="KDV" Type="Self.KDV" Multiplicity="0..1" />
+          <End Role="Siparis_Detay" Type="Self.Siparis_Detay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KDV">
+              <PropertyRef Name="KDV_ID" />
+            </Principal>
+            <Dependent Role="Siparis_Detay">
+              <PropertyRef Name="KDV_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparis_Detay_Kullanicilar">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="0..1" />
+          <End Role="Siparis_Detay" Type="Self.Siparis_Detay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="Siparis_Detay">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparis_Detay_Urunler">
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="1" />
+          <End Role="Siparis_Detay" Type="Self.Siparis_Detay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="Urun_ID" />
+            </Principal>
+            <Dependent Role="Siparis_Detay">
+              <PropertyRef Name="Urun_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparisler_Firmalar">
+          <End Role="Firmalar" Type="Self.Firmalar" Multiplicity="0..1" />
+          <End Role="Siparisler" Type="Self.Siparisler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firmalar">
+              <PropertyRef Name="Firma_ID" />
+            </Principal>
+            <Dependent Role="Siparisler">
+              <PropertyRef Name="Firma_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Urunler_Firmalar">
+          <End Role="Firmalar" Type="Self.Firmalar" Multiplicity="1" />
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firmalar">
+              <PropertyRef Name="Firma_ID" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="Firma_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Urunler_kategoriler">
+          <End Role="kategoriler" Type="Self.kategoriler" Multiplicity="1" />
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kategoriler">
+              <PropertyRef Name="Kategori_ID" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="Kategori_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Urunler_KDV">
+          <End Role="KDV" Type="Self.KDV" Multiplicity="1" />
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KDV">
+              <PropertyRef Name="KDV_ID" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="KDV_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Urunler_Markalar">
+          <End Role="Markalar" Type="Self.Markalar" Multiplicity="1" />
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Markalar">
+              <PropertyRef Name="Marka_ID" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="Marka_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="stokModelStoreContainer">
+          <EntitySet Name="Firmalar" EntityType="Self.Firmalar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kategoriler" EntityType="Self.kategoriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KDV" EntityType="Self.KDV" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Markalar" EntityType="Self.Markalar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Odemeler" EntityType="Self.Odemeler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Satislar" EntityType="Self.Satislar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sepet" EntityType="Self.Sepet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Siparis_Detay" EntityType="Self.Siparis_Detay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Siparisler" EntityType="Self.Siparisler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Urunler" EntityType="Self.Urunler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hesaplar" EntityType="Self.Hesaplar" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Hesaplar].[Hesap_ID] AS [Hesap_ID], 
+    [Hesaplar].[Hesap_Ad] AS [Hesap_Ad], 
+    [Hesaplar].[Bloke_Suresi] AS [Bloke_Suresi]
+    FROM [dbo].[Hesaplar] AS [Hesaplar]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Satis_Detay" EntityType="Self.Satis_Detay" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Satis_Detay].[Satis_ID] AS [Satis_ID], 
+    [Satis_Detay].[Firma_ID] AS [Firma_ID], 
+    [Satis_Detay].[Urun_ID] AS [Urun_ID], 
+    [Satis_Detay].[Urun_adet] AS [Urun_adet], 
+    [Satis_Detay].[Birim_fiyat] AS [Birim_fiyat], 
+    [Satis_Detay].[Tarih] AS [Tarih]
+    FROM [dbo].[Satis_Detay] AS [Satis_Detay]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Stok" EntityType="Self.Stok" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Stok].[Urun_ID] AS [Urun_ID], 
+    [Stok].[Stok_Adedi] AS [Stok_Adedi]
+    FROM [dbo].[Stok] AS [Stok]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Sepet_Firmalar" Association="Self.FK_Sepet_Firmalar">
+            <End Role="Firmalar" EntitySet="Firmalar" />
+            <End Role="Sepet" EntitySet="Sepet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sepet_KDV" Association="Self.FK_Sepet_KDV">
+            <End Role="KDV" EntitySet="KDV" />
+            <End Role="Sepet" EntitySet="Sepet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sepet_Kullanicilar" Association="Self.FK_Sepet_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Sepet" EntitySet="Sepet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sepet_Urunler" Association="Self.FK_Sepet_Urunler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Sepet" EntitySet="Sepet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparis_Detay_Firmalar" Association="Self.FK_Siparis_Detay_Firmalar">
+            <End Role="Firmalar" EntitySet="Firmalar" />
+            <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparis_Detay_KDV" Association="Self.FK_Siparis_Detay_KDV">
+            <End Role="KDV" EntitySet="KDV" />
+            <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparis_Detay_Kullanicilar" Association="Self.FK_Siparis_Detay_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparis_Detay_Urunler" Association="Self.FK_Siparis_Detay_Urunler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparisler_Firmalar" Association="Self.FK_Siparisler_Firmalar">
+            <End Role="Firmalar" EntitySet="Firmalar" />
+            <End Role="Siparisler" EntitySet="Siparisler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Urunler_Firmalar" Association="Self.FK_Urunler_Firmalar">
+            <End Role="Firmalar" EntitySet="Firmalar" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Urunler_kategoriler" Association="Self.FK_Urunler_kategoriler">
+            <End Role="kategoriler" EntitySet="kategoriler" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Urunler_KDV" Association="Self.FK_Urunler_KDV">
+            <End Role="KDV" EntitySet="KDV" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Urunler_Markalar" Association="Self.FK_Urunler_Markalar">
+            <End Role="Markalar" EntitySet="Markalar" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="stokModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Firmalar">
+          <Key>
+            <PropertyRef Name="Firma_ID" />
+          </Key>
+          <Property Name="Firma_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firma_Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Firma_Alacak" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Firma_Verecek" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Firma_indirim" Type="Int32" />
+          <NavigationProperty Name="Urunler" Relationship="Self.FK_Urunler_Firmalar" FromRole="Firmalar" ToRole="Urunler" />
+          <NavigationProperty Name="Sepet" Relationship="stokModel.FK_Sepet_Firmalar" FromRole="Firmalar" ToRole="Sepet" />
+          <NavigationProperty Name="Siparis_Detay" Relationship="stokModel.FK_Siparis_Detay_Firmalar" FromRole="Firmalar" ToRole="Siparis_Detay" />
+          <NavigationProperty Name="Siparisler" Relationship="stokModel.FK_Siparisler_Firmalar" FromRole="Firmalar" ToRole="Siparisler" />
+        </EntityType>
+        <EntityType Name="kategoriler">
+          <Key>
+            <PropertyRef Name="Kategori_ID" />
+          </Key>
+          <Property Name="Kategori_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kategori_ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Urunler" Relationship="Self.FK_Urunler_kategoriler" FromRole="kategoriler" ToRole="Urunler" />
+        </EntityType>
+        <EntityType Name="KDV">
+          <Key>
+            <PropertyRef Name="KDV_ID" />
+          </Key>
+          <Property Name="KDV_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KDV_oran" Type="Int32" />
+          <NavigationProperty Name="Urunler" Relationship="Self.FK_Urunler_KDV" FromRole="KDV" ToRole="Urunler" />
+          <NavigationProperty Name="Sepet" Relationship="stokModel.FK_Sepet_KDV" FromRole="KDV" ToRole="Sepet" />
+          <NavigationProperty Name="Siparis_Detay" Relationship="stokModel.FK_Siparis_Detay_KDV" FromRole="KDV" ToRole="Siparis_Detay" />
+        </EntityType>
+        <EntityType Name="Markalar">
+          <Key>
+            <PropertyRef Name="Marka_ID" />
+          </Key>
+          <Property Name="Marka_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marka_Isim" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Urunler" Relationship="Self.FK_Urunler_Markalar" FromRole="Markalar" ToRole="Urunler" />
+        </EntityType>
+        <EntityType Name="Odemeler">
+          <Key>
+            <PropertyRef Name="Odeme_ID" />
+          </Key>
+          <Property Name="Odeme_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firma_ID" Type="Int32" Nullable="false" />
+          <Property Name="Odenen_tutar" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Odeme_kod" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="Odeme_tarih" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Satislar">
+          <Key>
+            <PropertyRef Name="Satis_ID" />
+          </Key>
+          <Property Name="Satis_ID" Type="Int32" Nullable="false" />
+          <Property Name="Firma_ID" Type="Int32" />
+          <Property Name="Satis_Tutar" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Odenen_Tutar" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Odeme_Tipi" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Sepet">
+          <Key>
+            <PropertyRef Name="Sepet_ID" />
+          </Key>
+          <Property Name="Sepet_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Urun_ID" Type="Int32" Nullable="false" />
+          <Property Name="Urun_Miktar" Type="Int32" />
+          <Property Name="KDVsiz_fiyat" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Toplam_fiyat" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Tarih" Type="DateTime" Precision="3" />
+          <Property Name="Firma_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Urunler" Relationship="stokModel.FK_Sepet_Urunler" FromRole="Sepet" ToRole="Urunler" />
+          <NavigationProperty Name="Firmalar" Relationship="stokModel.FK_Sepet_Firmalar" FromRole="Sepet" ToRole="Firmalar" />
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kullanicilar" Relationship="stokModel.FK_Sepet_Kullanicilar" FromRole="Sepet" ToRole="Kullanicilar" />
+          <Property Name="KDV_ID" Type="Int32" />
+          <NavigationProperty Name="KDV" Relationship="stokModel.FK_Sepet_KDV" FromRole="Sepet" ToRole="KDV" />
+        </EntityType>
+        <EntityType Name="Siparisler">
+          <Key>
+            <PropertyRef Name="Siparis_ID" />
+          </Key>
+          <Property Name="Siparis_ID" Type="Int32" Nullable="false" />
+          <Property Name="Firma_ID" Type="Int32" />
+          <Property Name="Siparis_Tutar" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Odenen_Tutar" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Siparis_Tarih" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Firmalar" Relationship="stokModel.FK_Siparisler_Firmalar" FromRole="Siparisler" ToRole="Firmalar" />
+          <NavigationProperty Name="Siparis_Detay" Relationship="stokModel.FK_Siparis_Detay_Siparisler" FromRole="Siparisler" ToRole="Siparis_Detay" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Urunler">
+          <Key>
+            <PropertyRef Name="Urun_ID" />
+          </Key>
+          <Property Name="Urun_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Barkod_no" Type="Int32" />
+          <Property Name="Urun_Ad" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Marka_ID" Type="Int32" Nullable="false" />
+          <Property Name="Kategori_ID" Type="Int32" Nullable="false" />
+          <Property Name="KDV_Haric_Fiyat" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="KDV_ID" Type="Int32" Nullable="false" />
+          <Property Name="Yuzdelik_Kar" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Iskonto" Type="Int32" Nullable="false" />
+          <Property Name="Stok" Type="Int32" Nullable="false" />
+          <Property Name="Firma_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Firmalar" Relationship="Self.FK_Urunler_Firmalar" FromRole="Urunler" ToRole="Firmalar" />
+          <NavigationProperty Name="kategoriler" Relationship="Self.FK_Urunler_kategoriler" FromRole="Urunler" ToRole="kategoriler" />
+          <NavigationProperty Name="KDV" Relationship="Self.FK_Urunler_KDV" FromRole="Urunler" ToRole="KDV" />
+          <NavigationProperty Name="Markalar" Relationship="Self.FK_Urunler_Markalar" FromRole="Urunler" ToRole="Markalar" />
+          <NavigationProperty Name="Sepet" Relationship="stokModel.FK_Sepet_Urunler" FromRole="Urunler" ToRole="Sepet" />
+          <Property Name="Resim" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Siparis_Detay" Relationship="stokModel.FK_Siparis_Detay_Urunler" FromRole="Urunler" ToRole="Siparis_Detay" />
+        </EntityType>
+        <EntityType Name="Hesaplar">
+          <Key>
+            <PropertyRef Name="Hesap_ID" />
+          </Key>
+          <Property Name="Hesap_ID" Type="Int32" Nullable="false" />
+          <Property Name="Hesap_Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Bloke_Suresi" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Satis_Detay">
+          <Key>
+            <PropertyRef Name="Satis_ID" />
+            <PropertyRef Name="Urun_ID" />
+          </Key>
+          <Property Name="Satis_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firma_ID" Type="Int32" />
+          <Property Name="Urun_ID" Type="Int32" Nullable="false" />
+          <Property Name="Urun_adet" Type="Int32" />
+          <Property Name="Birim_fiyat" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Siparis_Detay">
+          <Key>
+            <PropertyRef Name="Sepet_ID" />
+          </Key>
+          <Property Name="Siparis_ID" Type="Int32" Nullable="false" />
+          <Property Name="Firma_ID" Type="Int32" />
+          <Property Name="Urun_ID" Type="Int32" Nullable="false" />
+          <Property Name="KDV_ID" Type="Int32" />
+          <Property Name="Urun_adet" Type="Int32" />
+          <Property Name="KDVsiz_fiyat" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Tarih" Type="DateTime" Precision="3" />
+          <Property Name="KullaniciID" Type="Int32" />
+          <NavigationProperty Name="Kullanicilar" Relationship="stokModel.FK_Siparis_Detay_Kullanicilar" FromRole="Siparis_Detay" ToRole="Kullanicilar" />
+          <NavigationProperty Name="Firmalar" Relationship="stokModel.FK_Siparis_Detay_Firmalar" FromRole="Siparis_Detay" ToRole="Firmalar" />
+          <NavigationProperty Name="Urunler" Relationship="stokModel.FK_Siparis_Detay_Urunler" FromRole="Siparis_Detay" ToRole="Urunler" />
+          <Property Name="Sepet_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="KDV" Relationship="stokModel.FK_Siparis_Detay_KDV" FromRole="Siparis_Detay" ToRole="KDV" />
+          <NavigationProperty Name="Siparisler" Relationship="stokModel.FK_Siparis_Detay_Siparisler" FromRole="Siparis_Detay" ToRole="Siparisler" />
+        </EntityType>
+        <EntityType Name="Stok">
+          <Key>
+            <PropertyRef Name="Urun_ID" />
+          </Key>
+          <Property Name="Urun_ID" Type="Int32" Nullable="false" />
+          <Property Name="Stok_Adedi" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Urunler_Firmalar">
+          <End Role="Firmalar" Type="Self.Firmalar" Multiplicity="1" />
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firmalar">
+              <PropertyRef Name="Firma_ID" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="Firma_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Urunler_kategoriler">
+          <End Role="kategoriler" Type="Self.kategoriler" Multiplicity="1" />
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kategoriler">
+              <PropertyRef Name="Kategori_ID" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="Kategori_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Urunler_KDV">
+          <End Role="KDV" Type="Self.KDV" Multiplicity="1" />
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KDV">
+              <PropertyRef Name="KDV_ID" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="KDV_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Urunler_Markalar">
+          <End Role="Markalar" Type="Self.Markalar" Multiplicity="1" />
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Markalar">
+              <PropertyRef Name="Marka_ID" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="Marka_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="stokEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Firmalar" EntityType="Self.Firmalar" />
+          <EntitySet Name="kategoriler" EntityType="Self.kategoriler" />
+          <EntitySet Name="KDV" EntityType="Self.KDV" />
+          <EntitySet Name="Markalar" EntityType="Self.Markalar" />
+          <EntitySet Name="Odemeler" EntityType="Self.Odemeler" />
+          <EntitySet Name="Satislar" EntityType="Self.Satislar" />
+          <EntitySet Name="Sepet" EntityType="Self.Sepet" />
+          <EntitySet Name="Siparisler" EntityType="Self.Siparisler" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Urunler" EntityType="Self.Urunler" />
+          <EntitySet Name="Hesaplar" EntityType="Self.Hesaplar" />
+          <EntitySet Name="Satis_Detay" EntityType="Self.Satis_Detay" />
+          <EntitySet Name="Siparis_Detay" EntityType="Self.Siparis_Detay" />
+          <EntitySet Name="Stok" EntityType="Self.Stok" />
+          <AssociationSet Name="FK_Urunler_Firmalar" Association="Self.FK_Urunler_Firmalar">
+            <End Role="Firmalar" EntitySet="Firmalar" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Urunler_kategoriler" Association="Self.FK_Urunler_kategoriler">
+            <End Role="kategoriler" EntitySet="kategoriler" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Urunler_KDV" Association="Self.FK_Urunler_KDV">
+            <End Role="KDV" EntitySet="KDV" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Urunler_Markalar" Association="Self.FK_Urunler_Markalar">
+            <End Role="Markalar" EntitySet="Markalar" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sepet_Urunler" Association="stokModel.FK_Sepet_Urunler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Sepet" EntitySet="Sepet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sepet_Firmalar" Association="stokModel.FK_Sepet_Firmalar">
+            <End Role="Firmalar" EntitySet="Firmalar" />
+            <End Role="Sepet" EntitySet="Sepet" />
+          </AssociationSet>
+          <EntitySet Name="Kullanicilar" EntityType="stokModel.Kullanicilar" />
+          <AssociationSet Name="FK_Sepet_Kullanicilar" Association="stokModel.FK_Sepet_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Sepet" EntitySet="Sepet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparis_Detay_Kullanicilar" Association="stokModel.FK_Siparis_Detay_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparis_Detay_Firmalar" Association="stokModel.FK_Siparis_Detay_Firmalar">
+            <End Role="Firmalar" EntitySet="Firmalar" />
+            <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparis_Detay_Urunler" Association="stokModel.FK_Siparis_Detay_Urunler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sepet_KDV" Association="stokModel.FK_Sepet_KDV">
+            <End Role="KDV" EntitySet="KDV" />
+            <End Role="Sepet" EntitySet="Sepet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparis_Detay_KDV" Association="stokModel.FK_Siparis_Detay_KDV">
+            <End Role="KDV" EntitySet="KDV" />
+            <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparisler_Firmalar" Association="stokModel.FK_Siparisler_Firmalar">
+            <End Role="Firmalar" EntitySet="Firmalar" />
+            <End Role="Siparisler" EntitySet="Siparisler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparis_Detay_Siparisler" Association="stokModel.FK_Siparis_Detay_Siparisler">
+            <End Role="Siparisler" EntitySet="Siparisler" />
+            <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Sepet_Urunler">
+          <End Type="stokModel.Urunler" Role="Urunler" Multiplicity="1" />
+          <End Type="stokModel.Sepet" Role="Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="Urun_ID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="Urun_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sepet_Firmalar">
+          <End Type="stokModel.Firmalar" Role="Firmalar" Multiplicity="1" />
+          <End Type="stokModel.Sepet" Role="Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firmalar">
+              <PropertyRef Name="Firma_ID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="Firma_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kullaniciadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sifre" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sepet" Relationship="stokModel.FK_Sepet_Kullanicilar" FromRole="Kullanicilar" ToRole="Sepet" />
+          <NavigationProperty Name="Siparis_Detay" Relationship="stokModel.FK_Siparis_Detay_Kullanicilar" FromRole="Kullanicilar" ToRole="Siparis_Detay" />
+        </EntityType>
+        <Association Name="FK_Sepet_Kullanicilar">
+          <End Type="stokModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+          <End Type="stokModel.Sepet" Role="Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparis_Detay_Kullanicilar">
+          <End Type="stokModel.Kullanicilar" Role="Kullanicilar" Multiplicity="0..1" />
+          <End Type="stokModel.Siparis_Detay" Role="Siparis_Detay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="Siparis_Detay">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparis_Detay_Firmalar">
+          <End Type="stokModel.Firmalar" Role="Firmalar" Multiplicity="0..1" />
+          <End Type="stokModel.Siparis_Detay" Role="Siparis_Detay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firmalar">
+              <PropertyRef Name="Firma_ID" />
+            </Principal>
+            <Dependent Role="Siparis_Detay">
+              <PropertyRef Name="Firma_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparis_Detay_Urunler">
+          <End Type="stokModel.Urunler" Role="Urunler" Multiplicity="1" />
+          <End Type="stokModel.Siparis_Detay" Role="Siparis_Detay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="Urun_ID" />
+            </Principal>
+            <Dependent Role="Siparis_Detay">
+              <PropertyRef Name="Urun_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sepet_KDV">
+          <End Type="stokModel.KDV" Role="KDV" Multiplicity="0..1" />
+          <End Type="stokModel.Sepet" Role="Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KDV">
+              <PropertyRef Name="KDV_ID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="KDV_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparis_Detay_KDV">
+          <End Type="stokModel.KDV" Role="KDV" Multiplicity="0..1" />
+          <End Type="stokModel.Siparis_Detay" Role="Siparis_Detay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KDV">
+              <PropertyRef Name="KDV_ID" />
+            </Principal>
+            <Dependent Role="Siparis_Detay">
+              <PropertyRef Name="KDV_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparisler_Firmalar">
+          <End Type="stokModel.Firmalar" Role="Firmalar" Multiplicity="0..1" />
+          <End Type="stokModel.Siparisler" Role="Siparisler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firmalar">
+              <PropertyRef Name="Firma_ID" />
+            </Principal>
+            <Dependent Role="Siparisler">
+              <PropertyRef Name="Firma_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparis_Detay_Siparisler">
+          <End Type="stokModel.Siparisler" Role="Siparisler" Multiplicity="1" />
+          <End Type="stokModel.Siparis_Detay" Role="Siparis_Detay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Siparisler">
+              <PropertyRef Name="Siparis_ID" />
+            </Principal>
+            <Dependent Role="Siparis_Detay">
+              <PropertyRef Name="Siparis_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="stokModelStoreContainer" CdmEntityContainer="stokEntities1">
+          <EntitySetMapping Name="Firmalar">
+            <EntityTypeMapping TypeName="stokModel.Firmalar">
+              <MappingFragment StoreEntitySet="Firmalar">
+                <ScalarProperty Name="Firma_ID" ColumnName="Firma_ID" />
+                <ScalarProperty Name="Firma_Ad" ColumnName="Firma_Ad" />
+                <ScalarProperty Name="Firma_Alacak" ColumnName="Firma_Alacak" />
+                <ScalarProperty Name="Firma_Verecek" ColumnName="Firma_Verecek" />
+                <ScalarProperty Name="Firma_indirim" ColumnName="Firma_indirim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kategoriler">
+            <EntityTypeMapping TypeName="stokModel.kategoriler">
+              <MappingFragment StoreEntitySet="kategoriler">
+                <ScalarProperty Name="Kategori_ID" ColumnName="Kategori_ID" />
+                <ScalarProperty Name="Kategori_ad" ColumnName="Kategori_ad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KDV">
+            <EntityTypeMapping TypeName="stokModel.KDV">
+              <MappingFragment StoreEntitySet="KDV">
+                <ScalarProperty Name="KDV_ID" ColumnName="KDV_ID" />
+                <ScalarProperty Name="KDV_oran" ColumnName="KDV_oran" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Markalar">
+            <EntityTypeMapping TypeName="stokModel.Markalar">
+              <MappingFragment StoreEntitySet="Markalar">
+                <ScalarProperty Name="Marka_ID" ColumnName="Marka_ID" />
+                <ScalarProperty Name="Marka_Isim" ColumnName="Marka_Isim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Odemeler">
+            <EntityTypeMapping TypeName="stokModel.Odemeler">
+              <MappingFragment StoreEntitySet="Odemeler">
+                <ScalarProperty Name="Odeme_ID" ColumnName="Odeme_ID" />
+                <ScalarProperty Name="Firma_ID" ColumnName="Firma_ID" />
+                <ScalarProperty Name="Odenen_tutar" ColumnName="Odenen_tutar" />
+                <ScalarProperty Name="Odeme_kod" ColumnName="Odeme_kod" />
+                <ScalarProperty Name="Odeme_tarih" ColumnName="Odeme_tarih" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Satislar">
+            <EntityTypeMapping TypeName="stokModel.Satislar">
+              <MappingFragment StoreEntitySet="Satislar">
+                <ScalarProperty Name="Satis_ID" ColumnName="Satis_ID" />
+                <ScalarProperty Name="Firma_ID" ColumnName="Firma_ID" />
+                <ScalarProperty Name="Satis_Tutar" ColumnName="Satis_Tutar" />
+                <ScalarProperty Name="Odenen_Tutar" ColumnName="Odenen_Tutar" />
+                <ScalarProperty Name="Odeme_Tipi" ColumnName="Odeme_Tipi" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sepet">
+            <EntityTypeMapping TypeName="stokModel.Sepet">
+              <MappingFragment StoreEntitySet="Sepet">
+                <ScalarProperty Name="KDV_ID" ColumnName="KDV_ID" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="Firma_ID" ColumnName="Firma_ID" />
+                <ScalarProperty Name="Sepet_ID" ColumnName="Sepet_ID" />
+                <ScalarProperty Name="Urun_ID" ColumnName="Urun_ID" />
+                <ScalarProperty Name="Urun_Miktar" ColumnName="Urun_Miktar" />
+                <ScalarProperty Name="KDVsiz_fiyat" ColumnName="KDVsiz_fiyat" />
+                <ScalarProperty Name="Toplam_fiyat" ColumnName="Toplam_fiyat" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Siparisler">
+            <EntityTypeMapping TypeName="stokModel.Siparisler">
+              <MappingFragment StoreEntitySet="Siparisler">
+                <ScalarProperty Name="Siparis_ID" ColumnName="Siparis_ID" />
+                <ScalarProperty Name="Firma_ID" ColumnName="Firma_ID" />
+                <ScalarProperty Name="Siparis_Tutar" ColumnName="Siparis_Tutar" />
+                <ScalarProperty Name="Odenen_Tutar" ColumnName="Odenen_Tutar" />
+                <ScalarProperty Name="Siparis_Tarih" ColumnName="Siparis_Tarih" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="stokModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Urunler">
+            <EntityTypeMapping TypeName="stokModel.Urunler">
+              <MappingFragment StoreEntitySet="Urunler">
+                <ScalarProperty Name="Resim" ColumnName="Resim" />
+                <ScalarProperty Name="Urun_ID" ColumnName="Urun_ID" />
+                <ScalarProperty Name="Barkod_no" ColumnName="Barkod_no" />
+                <ScalarProperty Name="Urun_Ad" ColumnName="Urun_Ad" />
+                <ScalarProperty Name="Marka_ID" ColumnName="Marka_ID" />
+                <ScalarProperty Name="Kategori_ID" ColumnName="Kategori_ID" />
+                <ScalarProperty Name="KDV_Haric_Fiyat" ColumnName="KDV_Haric_Fiyat" />
+                <ScalarProperty Name="KDV_ID" ColumnName="KDV_ID" />
+                <ScalarProperty Name="Yuzdelik_Kar" ColumnName="Yuzdelik_Kar" />
+                <ScalarProperty Name="Iskonto" ColumnName="Iskonto" />
+                <ScalarProperty Name="Stok" ColumnName="Stok" />
+                <ScalarProperty Name="Firma_ID" ColumnName="Firma_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hesaplar">
+            <EntityTypeMapping TypeName="stokModel.Hesaplar">
+              <MappingFragment StoreEntitySet="Hesaplar">
+                <ScalarProperty Name="Hesap_ID" ColumnName="Hesap_ID" />
+                <ScalarProperty Name="Hesap_Ad" ColumnName="Hesap_Ad" />
+                <ScalarProperty Name="Bloke_Suresi" ColumnName="Bloke_Suresi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Satis_Detay">
+            <EntityTypeMapping TypeName="stokModel.Satis_Detay">
+              <MappingFragment StoreEntitySet="Satis_Detay">
+                <ScalarProperty Name="Satis_ID" ColumnName="Satis_ID" />
+                <ScalarProperty Name="Firma_ID" ColumnName="Firma_ID" />
+                <ScalarProperty Name="Urun_ID" ColumnName="Urun_ID" />
+                <ScalarProperty Name="Urun_adet" ColumnName="Urun_adet" />
+                <ScalarProperty Name="Birim_fiyat" ColumnName="Birim_fiyat" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Siparis_Detay">
+            <EntityTypeMapping TypeName="stokModel.Siparis_Detay">
+              <MappingFragment StoreEntitySet="Siparis_Detay">
+                <ScalarProperty Name="Sepet_ID" ColumnName="Sepet_ID" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="Siparis_ID" ColumnName="Siparis_ID" />
+                <ScalarProperty Name="Firma_ID" ColumnName="Firma_ID" />
+                <ScalarProperty Name="Urun_ID" ColumnName="Urun_ID" />
+                <ScalarProperty Name="KDV_ID" ColumnName="KDV_ID" />
+                <ScalarProperty Name="Urun_adet" ColumnName="Urun_adet" />
+                <ScalarProperty Name="KDVsiz_fiyat" ColumnName="KDVsiz_fiyat" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stok">
+            <EntityTypeMapping TypeName="stokModel.Stok">
+              <MappingFragment StoreEntitySet="Stok">
+                <ScalarProperty Name="Urun_ID" ColumnName="Urun_ID" />
+                <ScalarProperty Name="Stok_Adedi" ColumnName="Stok_Adedi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanicilar">
+            <EntityTypeMapping TypeName="stokModel.Kullanicilar">
+              <MappingFragment StoreEntitySet="Kullanicilar">
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="Kullaniciadi" ColumnName="Kullaniciadi" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

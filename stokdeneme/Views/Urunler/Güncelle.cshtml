@@ -1,0 +1,37 @@
+﻿@model stokdeneme.Models.Entities.Urunler
+@{
+    ViewBag.Title = "Güncelle";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("Guncel", "Urunler", FormMethod.Post))
+{
+    <div class="form-group">
+        <label style="margin-top:10px;">Ürün ID</label>
+        @Html.TextBoxFor(m => m.Urun_ID, new { @class = "form-control w-50", style = "margin-top:5px;", @readonly = true })
+        <label style="margin-top:10px;">Barkod No</label>
+        @Html.TextBoxFor(m => m.Barkod_no, new { @class = "form-control w-50", style = "margin-top:5px;" })
+        <label style="margin-top:10px;">Ürün Adı</label>
+        @Html.TextBoxFor(m => m.Urun_Ad, new { @class = "form-control w-50", style = "margin-top:5px;" })
+        <label style="margin-top:10px;">Firma</label>
+        @Html.DropDownListFor(m => m.Firmalar.Firma_ID, (List<SelectListItem>)ViewBag.frms, new { @class = "form-control w-50", style = "margin-top:5px;" })
+        <label style="margin-top:10px;">Marka</label>
+        @Html.DropDownListFor(m => m.Markalar.Marka_ID, (List<SelectListItem>)ViewBag.mrklr, new { @class = "form-control w-50", style = "margin-top:5px;" })
+        <label style="margin-top:10px;">Kategori</label>
+        @Html.DropDownListFor(m => m.kategoriler.Kategori_ID, (List<SelectListItem>)ViewBag.dgr, new { @class = "form-control w-50", style = "margin-top:5px;" })
+        <label style="margin-top:10px;">Yalın Fiyat</label>
+        @Html.TextBoxFor(m => m.KDV_Haric_Fiyat, new { @class = "form-control w-50", style = "margin-top:5px;" })
+        <label style="margin-top:10px;">KDV</label>
+        @Html.TextBoxFor(m => m.KDV_ID, new { @class = "form-control w-50", style = "margin-top:5px;" })
+        <label style="margin-top:10px;">Kar Oranı</label>
+        @Html.TextBoxFor(m => m.Yuzdelik_Kar, new { @class = "form-control w-50", style = "margin-top:5px;" })
+        <label style="margin-top:10px;">İskonto</label>
+        @Html.TextBoxFor(m => m.Iskonto, new { @class = "form-control w-50", style = "margin-top:5px;" })
+        <label style="margin-top:10px;">Stok Adedi</label>
+        @Html.TextBoxFor(m => m.Stok, new { @class = "form-control w-50", style = "margin-top:5px;" })
+        <div style="margin-top:20px;">
+            <button class="btn btn-warning">Ürün Güncelle</button>
+        </div>
+    </div>
+}
